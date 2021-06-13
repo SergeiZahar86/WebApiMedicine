@@ -495,4 +495,6 @@ VALUES (4, '2021-06-05 00:00:00', 'Шейный хондроз', NULL, 2, 'Вт�
 CREATE INDEX `IX_Patients_Id` ON `Patients` (`Id`);Executed DbCommand (241ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
 CREATE INDEX `IX_Visits_PatientsId` ON `Visits` (`PatientsId`);Executed DbCommand (76ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20210613153519_InitialCreate', '5.0.7');
+VALUES ('20210613153519_InitialCreate', '5.0.7');Executed DbCommand (89ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`Id`, `p`.`Adress`, `p`.`Age`, `p`.`Birth`, `p`.`Gender`, `p`.`Middle_name`, `p`.`Name`, `p`.`PhoneNumber`, `p`.`Surname`
+FROM `Patients` AS `p`

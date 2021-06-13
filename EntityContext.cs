@@ -10,9 +10,9 @@ namespace WebApiMedicine
 {
     public partial class EntityContext : DbContext
     {
-        public EntityContext()
+       /* public EntityContext()
         {
-        }
+        }*/
         public EntityContext(DbContextOptions<EntityContext> options) : base(options)
         {
         }
@@ -36,11 +36,6 @@ namespace WebApiMedicine
         {
             modelBuilder.ApplyConfiguration(new PatientsConfiguration());
             modelBuilder.ApplyConfiguration(new VisitsConfiguration());
-
-            /*modelBuilder.Entity<Patients>().HasIndex(u => u.Id);
-            modelBuilder.Entity<Patients>()
-                .Property(u => u.FullName)
-                .HasComputedColumnSql("[Surname] + ' ' + [Name] + ' ' + [MiddleName]");*/
         }
         public static readonly ILoggerFactory MyLoggerFactory = LoggerFactory.Create(builder =>
         {
