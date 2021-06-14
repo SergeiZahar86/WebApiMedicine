@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,9 +20,51 @@ namespace WebApiMedicine.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Patients> Get()
+        public async Task<ActionResult<IEnumerable<Patients>>> Get()
         {
-            return entityContext.Patients.ToArray();
+            return await entityContext.Patients.ToListAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Patients>> Get(int id)
+        {
+            Patients patients = await entityContext.Patients.FirstOrDefaultAsync(x => x.Id == id);
+            if (patients == null)
+                return NotFound();
+            return new ObjectResult(patients);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Patients>> Post([FromBody] Patients patients)
+        {
+            if (patients == null)
+                return BadRequest();
+            entityContext.Patients.Add(patients);
+            await entityContext.SaveChangesAsync();
+            return Ok(patients);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<Patients>> Put([FromBody] Patients patients)
+        {
+            if (patients == null)
+                return BadRequest();
+            if (!entityContext.Patients.Any(x => x.Id == patients.Id))
+                return NotFound();
+            entityContext.Update(patients);
+            await entityContext.SaveChangesAsync();
+            return Ok(patients);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Patients>> Delete(int id)
+        {
+            Patients patients = entityContext.Patients.FirstOrDefault(x => x.Id == id);
+            if (patients == null)
+                return NotFound();
+            entityContext.Patients.Remove(patients);
+            await entityContext.SaveChangesAsync();
+            return Ok(patients);
         }
     }
 }

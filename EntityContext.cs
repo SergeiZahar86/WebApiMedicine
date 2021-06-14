@@ -10,9 +10,6 @@ namespace WebApiMedicine
 {
     public partial class EntityContext : DbContext
     {
-       /* public EntityContext()
-        {
-        }*/
         public EntityContext(DbContextOptions<EntityContext> options) : base(options)
         {
         }
