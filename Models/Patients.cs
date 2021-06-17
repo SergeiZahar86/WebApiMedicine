@@ -29,7 +29,7 @@ namespace WebApiMedicine.Models
         public DateTime Birth { get; set; }
 
         [MaxLength(150)]
-        public string Adress { get; set; }
+        public string Address { get; set; }
 
         [MaxLength(20)]
         public string PhoneNumber { get; set; }

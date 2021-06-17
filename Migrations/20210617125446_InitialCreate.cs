@@ -26,7 +26,7 @@ namespace WebApiMedicine.Migrations
                     Gender = table.Column<string>(type: "varchar(10)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Birth = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Adress = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true)
+                    Address = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     PhoneNumber = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -66,7 +66,7 @@ namespace WebApiMedicine.Migrations
 
             migrationBuilder.InsertData(
                 table: "Patients",
-                columns: new[] { "Id", "Adress", "Age", "Birth", "Gender", "Middle_name", "Name", "PhoneNumber", "Surname" },
+                columns: new[] { "Id", "Address", "Age", "Birth", "Gender", "Middle_name", "Name", "PhoneNumber", "Surname" },
                 values: new object[,]
                 {
                     { 1, "ул.Курако 44/26", 35, new DateTime(1986, 4, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "муж", "Иванович", "Иван", "89009546565", "Иванов" },

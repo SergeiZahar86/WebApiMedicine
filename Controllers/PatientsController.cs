@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using WebApiMedicine.Models;
 
 namespace WebApiMedicine.Controllers
 {
+
     [Route("api/[controller]")]
     public class PatientsController : Controller
     {

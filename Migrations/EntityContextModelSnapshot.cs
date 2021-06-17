@@ -23,7 +23,7 @@ namespace WebApiMedicine.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Adress")
+                    b.Property<string>("Address")
                         .HasMaxLength(150)
                         .HasColumnType("varchar(150)");
 
@@ -65,7 +65,7 @@ namespace WebApiMedicine.Migrations
                         new
                         {
                             Id = 1,
-                            Adress = "ул.Курако 44/26",
+                            Address = "ул.Курако 44/26",
                             Age = 35,
                             Birth = new DateTime(1986, 4, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Gender = "муж",
@@ -77,7 +77,7 @@ namespace WebApiMedicine.Migrations
                         new
                         {
                             Id = 2,
-                            Adress = "ул.Новоселов 3/6",
+                            Address = "ул.Новоселов 3/6",
                             Age = 55,
                             Birth = new DateTime(1966, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Gender = "муж",

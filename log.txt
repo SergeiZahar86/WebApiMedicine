@@ -1,64 +1,51 @@
-Executed DbCommand (50ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`Id`, `p`.`Adress`, `p`.`Age`, `p`.`Birth`, `p`.`Gender`, `p`.`Middle_name`, `p`.`Name`, `p`.`PhoneNumber`, `p`.`Surname`
-FROM `Patients` AS `p`Executed DbCommand (55ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`Id`, `p`.`Adress`, `p`.`Age`, `p`.`Birth`, `p`.`Gender`, `p`.`Middle_name`, `p`.`Name`, `p`.`PhoneNumber`, `p`.`Surname`
-FROM `Patients` AS `p`Executed DbCommand (26ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `v`.`Id`, `v`.`Date`, `v`.`Diagnosis`, `v`.`PatientsId`, `v`.`PatientsInfoKey`, `v`.`Type`
-FROM `Visits` AS `v`Executed DbCommand (60ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`Id`, `p`.`Adress`, `p`.`Age`, `p`.`Birth`, `p`.`Gender`, `p`.`Middle_name`, `p`.`Name`, `p`.`PhoneNumber`, `p`.`Surname`
-FROM `Patients` AS `p`Executed DbCommand (43ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `v`.`Id`, `v`.`Date`, `v`.`Diagnosis`, `v`.`PatientsId`, `v`.`PatientsInfoKey`, `v`.`Type`
-FROM `Visits` AS `v`
-WHERE `v`.`Id` = @__id_0
-LIMIT 1Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (Size = 1000), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32), @p5='?' (Size = 20)], CommandType='Text', CommandTimeout='30']
+Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE DATABASE `medical`;Executed DbCommand (28ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+ALTER DATABASE CHARACTER SET utf8mb4;
+CREATE TABLE `__EFMigrationsHistory` (
+    `MigrationId` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
+    `ProductVersion` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PK___EFMigrationsHistory` PRIMARY KEY (`MigrationId`)
+) CHARACTER SET utf8mb4;Executed DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='medical' AND TABLE_NAME='__EFMigrationsHistory';Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+ALTER DATABASE CHARACTER SET utf8mb4;Executed DbCommand (20ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE `Patients` (
+    `Id` int NOT NULL AUTO_INCREMENT,
+    `Name` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `Surname` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `Middle_name` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `Gender` varchar(10) CHARACTER SET utf8mb4 NOT NULL,
+    `Birth` datetime(6) NOT NULL,
+    `Address` varchar(150) CHARACTER SET utf8mb4 NULL,
+    `PhoneNumber` varchar(20) CHARACTER SET utf8mb4 NULL,
+    `Age` int NOT NULL,
+    CONSTRAINT `PK_Patients` PRIMARY KEY (`Id`)
+) CHARACTER SET utf8mb4;Executed DbCommand (38ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE `Visits` (
+    `Id` int NOT NULL AUTO_INCREMENT,
+    `Date` datetime(6) NOT NULL,
+    `Type` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    `Diagnosis` varchar(1000) CHARACTER SET utf8mb4 NOT NULL,
+    `PatientsInfoKey` int NOT NULL,
+    `PatientsId` int NULL,
+    CONSTRAINT `PK_Visits` PRIMARY KEY (`Id`),
+    CONSTRAINT `FK_Visits_Patients_PatientsId` FOREIGN KEY (`PatientsId`) REFERENCES `Patients` (`Id`) ON DELETE RESTRICT
+) CHARACTER SET utf8mb4;Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Patients` (`Id`, `Address`, `Age`, `Birth`, `Gender`, `Middle_name`, `Name`, `PhoneNumber`, `Surname`)
+VALUES (1, 'ул.Курако 44/26', 35, '1986-04-22 00:00:00', 'муж', 'Иванович', 'Иван', '89009546565', 'Иванов');
+INSERT INTO `Patients` (`Id`, `Address`, `Age`, `Birth`, `Gender`, `Middle_name`, `Name`, `PhoneNumber`, `Surname`)
+VALUES (2, 'ул.Новоселов 3/6', 55, '1966-06-10 00:00:00', 'муж', 'Сергеевич', 'Николай', '89505550099', 'Сидоров');Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
 INSERT INTO `Visits` (`Id`, `Date`, `Diagnosis`, `PatientsId`, `PatientsInfoKey`, `Type`)
-VALUES (@p0, @p1, @p2, @p3, @p4, @p5);Executed DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `v`.`Id`, `v`.`Date`, `v`.`Diagnosis`, `v`.`PatientsId`, `v`.`PatientsInfoKey`, `v`.`Type`
-FROM `Visits` AS `v`Executed DbCommand (3ms) [Parameters=[@__visits_Id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT EXISTS (
-    SELECT 1
-    FROM `Visits` AS `v`
-    WHERE `v`.`Id` = @__visits_Id_0)Executed DbCommand (4ms) [Parameters=[@p4='?' (DbType = Int32), @p0='?' (DbType = DateTime), @p1='?' (Size = 1000), @p2='?' (DbType = Int32), @p3='?' (Size = 20)], CommandType='Text', CommandTimeout='30']
-UPDATE `Visits` SET `Date` = @p0, `Diagnosis` = @p1, `PatientsInfoKey` = @p2, `Type` = @p3
-WHERE `Id` = @p4;
-SELECT ROW_COUNT();Executed DbCommand (16ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `v`.`Id`, `v`.`Date`, `v`.`Diagnosis`, `v`.`PatientsId`, `v`.`PatientsInfoKey`, `v`.`Type`
-FROM `Visits` AS `v`Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `v`.`Id`, `v`.`Date`, `v`.`Diagnosis`, `v`.`PatientsId`, `v`.`PatientsInfoKey`, `v`.`Type`
-FROM `Visits` AS `v`
-WHERE `v`.`Id` = @__id_0
-LIMIT 1Executed DbCommand (7ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-DELETE FROM `Visits`
-WHERE `Id` = @p0;
-SELECT ROW_COUNT();Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `v`.`Id`, `v`.`Date`, `v`.`Diagnosis`, `v`.`PatientsId`, `v`.`PatientsInfoKey`, `v`.`Type`
-FROM `Visits` AS `v`Executed DbCommand (101ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `v`.`Id`, `v`.`Date`, `v`.`Diagnosis`, `v`.`PatientsId`, `v`.`PatientsInfoKey`, `v`.`Type`
-FROM `Visits` AS `v`Executed DbCommand (77ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`Id`, `p`.`Adress`, `p`.`Age`, `p`.`Birth`, `p`.`Gender`, `p`.`Middle_name`, `p`.`Name`, `p`.`PhoneNumber`, `p`.`Surname`
-FROM `Patients` AS `p`Executed DbCommand (12ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `v`.`Id`, `v`.`Date`, `v`.`Diagnosis`, `v`.`PatientsId`, `v`.`PatientsInfoKey`, `v`.`Type`
-FROM `Visits` AS `v`Executed DbCommand (58ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`Id`, `p`.`Adress`, `p`.`Age`, `p`.`Birth`, `p`.`Gender`, `p`.`Middle_name`, `p`.`Name`, `p`.`PhoneNumber`, `p`.`Surname`
-FROM `Patients` AS `p`Executed DbCommand (40ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `v`.`Id`, `v`.`Date`, `v`.`Diagnosis`, `v`.`PatientsId`, `v`.`PatientsInfoKey`, `v`.`Type`
-FROM `Visits` AS `v`
-WHERE `v`.`PatientsInfoKey` = @__id_0Executed DbCommand (68ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`Id`, `p`.`Adress`, `p`.`Age`, `p`.`Birth`, `p`.`Gender`, `p`.`Middle_name`, `p`.`Name`, `p`.`PhoneNumber`, `p`.`Surname`
-FROM `Patients` AS `p`Executed DbCommand (107ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `v`.`Id`, `v`.`Date`, `v`.`Diagnosis`, `v`.`PatientsId`, `v`.`PatientsInfoKey`, `v`.`Type`
-FROM `Visits` AS `v`
-WHERE `v`.`PatientsInfoKey` = @__id_0Executed DbCommand (58ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`Id`, `p`.`Adress`, `p`.`Age`, `p`.`Birth`, `p`.`Gender`, `p`.`Middle_name`, `p`.`Name`, `p`.`PhoneNumber`, `p`.`Surname`
-FROM `Patients` AS `p`Executed DbCommand (17ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`Id`, `p`.`Adress`, `p`.`Age`, `p`.`Birth`, `p`.`Gender`, `p`.`Middle_name`, `p`.`Name`, `p`.`PhoneNumber`, `p`.`Surname`
-FROM `Patients` AS `p`Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `v`.`Id`, `v`.`Date`, `v`.`Diagnosis`, `v`.`PatientsId`, `v`.`PatientsInfoKey`, `v`.`Type`
-FROM `Visits` AS `v`Executed DbCommand (43ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `v`.`Id`, `v`.`Date`, `v`.`Diagnosis`, `v`.`PatientsId`, `v`.`PatientsInfoKey`, `v`.`Type`
-FROM `Visits` AS `v`
-WHERE `v`.`PatientsInfoKey` = @__id_0Executed DbCommand (4ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`Id`, `p`.`Adress`, `p`.`Age`, `p`.`Birth`, `p`.`Gender`, `p`.`Middle_name`, `p`.`Name`, `p`.`PhoneNumber`, `p`.`Surname`
-FROM `Patients` AS `p`
-WHERE `p`.`Id` = @__id_0
-LIMIT 1
+VALUES (1, '2021-05-22 00:00:00', 'Грипп', NULL, 1, 'Первичный');
+INSERT INTO `Visits` (`Id`, `Date`, `Diagnosis`, `PatientsId`, `PatientsInfoKey`, `Type`)
+VALUES (2, '2021-06-02 00:00:00', 'Шейный хондроз', NULL, 2, 'Первичный');
+INSERT INTO `Visits` (`Id`, `Date`, `Diagnosis`, `PatientsId`, `PatientsInfoKey`, `Type`)
+VALUES (3, '2021-05-24 00:00:00', 'Грипп', NULL, 1, 'Вторичный');
+INSERT INTO `Visits` (`Id`, `Date`, `Diagnosis`, `PatientsId`, `PatientsInfoKey`, `Type`)
+VALUES (4, '2021-06-05 00:00:00', 'Шейный хондроз', NULL, 2, 'Вторичный');Executed DbCommand (47ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX `IX_Patients_Id` ON `Patients` (`Id`);Executed DbCommand (29ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX `IX_Visits_PatientsId` ON `Visits` (`PatientsId`);Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+VALUES ('20210617125446_InitialCreate', '5.0.7');
