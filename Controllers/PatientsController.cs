@@ -11,6 +11,7 @@ namespace WebApiMedicine.Controllers
 {
 
     [Route("api/[controller]")]
+    [ApiController]
     public class PatientsController : Controller
     {
         private EntityContext entityContext;

@@ -46,16 +46,35 @@ namespace WebApiMedicine.Controllers
             return Ok(visits);
         }
 
-        [HttpPut]
-        public async Task<ActionResult<Visits>> Put([FromBody] Visits visits)
+        /* [HttpPut]
+         public async Task<ActionResult<Visits>> Put([FromBody] Visits visits)
+         {
+             if (visits == null)
+                 return BadRequest();
+             if (!entityContext.Visits.Any(x => x.Id == visits.Id))
+                 return NotFound();
+             entityContext.Update(visits);
+             await entityContext.SaveChangesAsync();
+             return Ok(visits);
+         }*/
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Visits>> Put(int id, [FromBody] Visits visits)
         {
             if (visits == null)
                 return BadRequest();
-            if (!entityContext.Visits.Any(x => x.Id == visits.Id))
+            if (!entityContext.Visits.Any(x => x.Id == id))
                 return NotFound();
-            entityContext.Update(visits);
+            Visits vis = new Visits()
+            {
+                Id = id,
+                Date = visits.Date,
+                Type = visits.Type,
+                Diagnosis = visits.Diagnosis,
+                PatientsInfoKey = visits.PatientsInfoKey
+            };
+            entityContext.Update(vis);
             await entityContext.SaveChangesAsync();
-            return Ok(visits);
+            return Ok(vis);
         }
 
         [HttpDelete("{id}")]

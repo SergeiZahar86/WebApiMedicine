@@ -396,4 +396,15 @@ UPDATE `Patients` SET `Address` = @p0, `Age` = @p1, `Birth` = @p2, `Gender` = @p
 WHERE `Id` = @p8;
 SELECT ROW_COUNT();Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
 SELECT `p`.`Id`, `p`.`Address`, `p`.`Age`, `p`.`Birth`, `p`.`Gender`, `p`.`Middle_name`, `p`.`Name`, `p`.`PhoneNumber`, `p`.`Surname`
-FROM `Patients` AS `p`
+FROM `Patients` AS `p`Executed DbCommand (67ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `v`.`Id`, `v`.`Date`, `v`.`Diagnosis`, `v`.`PatientsId`, `v`.`PatientsInfoKey`, `v`.`Type`
+FROM `Visits` AS `v`Executed DbCommand (36ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Visits` AS `v`
+    WHERE `v`.`Id` = @__id_0)Executed DbCommand (16ms) [Parameters=[@p4='?' (DbType = Int32), @p0='?' (DbType = DateTime), @p1='?' (Size = 1000), @p2='?' (DbType = Int32), @p3='?' (Size = 20)], CommandType='Text', CommandTimeout='30']
+UPDATE `Visits` SET `Date` = @p0, `Diagnosis` = @p1, `PatientsInfoKey` = @p2, `Type` = @p3
+WHERE `Id` = @p4;
+SELECT ROW_COUNT();Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `v`.`Id`, `v`.`Date`, `v`.`Diagnosis`, `v`.`PatientsId`, `v`.`PatientsInfoKey`, `v`.`Type`
+FROM `Visits` AS `v`
