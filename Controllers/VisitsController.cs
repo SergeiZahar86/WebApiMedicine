@@ -36,7 +36,7 @@ namespace WebApiMedicine.Controllers
             return new ObjectResult(visits);
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public async Task<ActionResult<Visits>> Post([FromBody] Visits visits)
         {
             if (visits == null)
@@ -44,7 +44,24 @@ namespace WebApiMedicine.Controllers
             entityContext.Visits.Add(visits);
             await entityContext.SaveChangesAsync();
             return Ok(visits);
+        }*/
+        [HttpPost("{id}")]
+        public async Task<ActionResult<Visits>> Post(int id, [FromBody] Visits visits)
+        {
+            if (visits == null)
+                return BadRequest();
+            Visits vis = new Visits()
+            {
+                Date = visits.Date,
+                Type = visits.Type,
+                Diagnosis = visits.Diagnosis,
+                PatientsInfoKey = id
+            };
+            entityContext.Visits.Add(vis);
+            await entityContext.SaveChangesAsync();
+            return Ok(vis);
         }
+
 
         /* [HttpPut]
          public async Task<ActionResult<Visits>> Put([FromBody] Visits visits)
