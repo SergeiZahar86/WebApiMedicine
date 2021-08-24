@@ -17,17 +17,20 @@ namespace WebApiMedicine
         public virtual DbSet<Visits> Visits { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                var builder = new ConfigurationBuilder();
-                builder.SetBasePath(Directory.GetCurrentDirectory());
-                builder.AddJsonFile("appsettings.json");
-                var config = builder.Build();
-                string connectionString = config.GetConnectionString("DefaultConnection");
-                optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 11)));
-                
-                optionsBuilder.UseLoggerFactory(MyLoggerFactory);
-            }
+            //if (!optionsBuilder.IsConfigured)
+            //{
+            //    var builder = new ConfigurationBuilder();
+            //    builder.SetBasePath(Directory.GetCurrentDirectory());
+            //    builder.AddJsonFile("appsettings.json");
+            //    var config = builder.Build();
+            //    string connectionString = config.GetConnectionString("DefaultConnection");
+            //    optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 11)));
+
+            //    optionsBuilder.UseLoggerFactory(MyLoggerFactory);
+            //}
+
+
+            optionsBuilder.UseSqlServer("Data Source=host.docker.internal,1401;Initial Catalog=medicul;User Id=sa;Password=2712iwitn;Persist Security Info=True");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
